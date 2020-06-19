@@ -1,16 +1,21 @@
 import Phaser from 'phaser';
-import Scene1 from './Scene1.js';
-import Scene2 from './Scene2.js';
+import LoadingScene from './LoadingScene.js';
+import Room1 from './Room1.js';
+import Room2 from './Room2.js';
 
 
 class Game extends Phaser.Game {
   constructor(react) {
     const config = {
+      title: "The Lonely Robot",
+      version: 'v0.1',
+      autoFocus: true,
+
       width: 800,
       height: 600,
       backgroundColor: 0x000000,
-      scene: [Scene1, Scene2],
-      
+      scene: [LoadingScene, Room1, Room2],
+
       render: {
         pixelArt: true
       },

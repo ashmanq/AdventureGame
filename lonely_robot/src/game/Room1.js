@@ -1,12 +1,24 @@
 import Phaser from 'phaser';
 
-class Scene2 extends Phaser.Scene {
+class Room1 extends Phaser.Scene {
 
 
   constructor(props){
-    super("playGame");
+    super("Room1");
 
   }
+
+  init(data) {
+    this.data = data;
+    // To position player depending on which room they've came from
+    this.startPosX = 50;
+    if(data.start_x_pos) {
+      this.startPosX = data.start_x_pos;
+    }
+
+    console.log(this.startPosX);
+  }
+
 
   create() {
     // Stop sprites from leaving boundary of scene
@@ -14,17 +26,28 @@ class Scene2 extends Phaser.Scene {
     const config = this.game.config;
 
     // Keyboard inputs
-    this.keyboard = this.input.keyboard.addKeys("W, A, S, D");
+    this.keyboard = this.input.keyboard.addKeys("W, A, S, D, RIGHT, LEFT");
 
-    this.background = this.add.tileSprite(0, 0, config.width, config.height, "background");
+    this.background = this.add.tileSprite(0, 0, config.width, config.height, "r1_background");
     this.background.setOrigin(0, 0);
 
     // Create Robot sprite
-    this.robot = this.add.sprite(20, 420, "robotIdle");
+    this.robot = this.add.sprite(this.startPosX, 420, "robotIdle");
     this.robot.setScale(2);
     this.physics.world.enable([ this.robot ]);
     this.robot.body.setCollideWorldBounds(true);
 
+    if(this.data.returning) {
+      this.robot.setFlip(true, false);
+    }
+
+    // Create Door sprite
+    this.exitDoor = this.add.image(config.width - 10 , 366, "door");
+    this.physics.world.enable([ this.exitDoor ]);
+
+    this.physics.add.overlap(this.robot,   this.exitDoor,     function() {
+          this.scene.start("Room2");
+      }, null, this);
 
     //create animation
     this.anims.create({
@@ -52,56 +75,31 @@ class Scene2 extends Phaser.Scene {
     update(time, delta) {
 
       this.physics.world.collide(this.robot);
-      if(!this.keyboard.D.isDown && !this.keyboard.A.isDown) {
+
+
+      if(!this.keyboard.D.isDown && !this.keyboard.RIGHT.isDown === true
+        && !this.keyboard.LEFT.isDown && !this.keyboard.A.isDown) {
         this.robot.body.setVelocity(0,0);
         this.robot.play("robot_idle", true);
       }
 
-      if(this.keyboard.D.isDown === true) {
+      if(this.keyboard.D.isDown === true || this.keyboard.RIGHT.isDown === true) {
         this.robot.setFlip(false, false);
-        // this.robot.x +=5;
         this.robot.body.setVelocity(160, 0)
         this.robot.play("robot_run", true);
       }
 
-      if(this.keyboard.A.isDown === true) {
+      if(this.keyboard.A.isDown === true || this.keyboard.LEFT.isDown === true) {
         this.robot.setFlip(true, false);
-        // this.robot.x -=5;
         this.robot.body.setVelocity(-160, 0)
         this.robot.play("robot_run", true);
       }
 
 
 
-      // this.background.tilePositionY -= 0.5;
-
     }
-
-    moveShip(ship, speed) {
-      const config = this.game.config;
-
-      ship.y += speed;
-      if (ship.y > config.height) {
-        this.resetShipPos(ship);
-      }
-    }
-
-    resetShipPos(ship){
-      const config = this.game.config;
-
-      ship.y = 0;
-      var randomX = Phaser.Math.Between(0, config.width);
-      ship.x = randomX;
-    }
-
-
-    destroyShip(pointer, gameObject) {
-      gameObject.setTexture("explosion");
-      gameObject.play("explode");
-    }
-
 
 
 }
 
-export default Scene2;
+export default Room1;

@@ -1,15 +1,17 @@
 import Phaser from 'phaser';
 
-class Scene1 extends Phaser.Scene {
+class LoadingScene extends Phaser.Scene {
   constructor() {
-    super("bootGame");
+    super("LoadingGame");
   }
 
   preload(){
-    this.load.image("background", "/assets/images/scene1.png");
+    this.load.image("r1_background", "/assets/images/scene1.png");
+    this.load.image("r2_background", "/assets/images/scene2.png");
+
+    this.load.image("door", "/assets/images/door.png");
 
     // spritesheets is a collection of single file separated by frames
-
     this.load.spritesheet("robotRun", "/assets/spritesheets/robotRun.png",{
       //size of the frames
       frameWidth: 42,
@@ -55,8 +57,18 @@ class Scene1 extends Phaser.Scene {
   this.add.text(20, 110,"... machines are not perfect..");
   this.add.text(20, 160, "Loading game..can take a while due the huge amount of data...");
 
-  this.scene.start("playGame");
+  this.enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+  setTimeout(() => {
+    this.add.text(20, 200, "Please press enter to start!");
+  }, 1000);
 
+
+  }
+
+  update(time, delta) {
+    if(this.enterKey.isDown) {
+      this.scene.start("Room1");
+    }
   }
 
 }
@@ -66,4 +78,4 @@ class Scene1 extends Phaser.Scene {
 // preload() load the music and the images in the memory
 // create() add objects to the Game
 // update() loop that runs constantly
-export default Scene1;
+export default LoadingScene;
