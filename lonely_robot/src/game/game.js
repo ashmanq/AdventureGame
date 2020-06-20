@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 import LoadingScene from './LoadingScene.js';
 import Room1 from './Room1.js';
 import Room2 from './Room2.js';
@@ -12,6 +13,8 @@ class Game extends Phaser.Game {
       title: "The Lonely Robot",
       version: 'v0.1',
       autoFocus: true,
+      parent: 'game',
+
 
       width: 800,
       height: 600,
@@ -27,7 +30,16 @@ class Game extends Phaser.Game {
         arcade: {
             debug: true
         }
-      }
+      },
+      plugins: {
+        scene: [{
+        key: 'rexUI',
+        plugin: RexUIPlugin,
+        mapping: 'rexUI'
+    },
+    // ...
+    ]
+}
     }
 
     super(config);

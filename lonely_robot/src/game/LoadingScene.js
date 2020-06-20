@@ -10,6 +10,10 @@ class LoadingScene extends Phaser.Scene {
     this.load.image("r2_background", "/assets/images/room2.png");
     this.load.image("r3_background", "/assets/images/room3.png");
     this.load.image("oldLady", "/assets/images/oldLady.png");
+    this.load.image("oldLady2", "/assets/images/oldLady2.png");
+    this.load.image("oldLady3", "/assets/images/oldLady3.png");
+
+    this.load.image('nextPage', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/assets/images/arrow-down-left.png');
 
     this.load.image("door", "/assets/images/door.png");
 
@@ -84,7 +88,7 @@ class LoadingScene extends Phaser.Scene {
   update(time, delta) {
     if(this.enterKey.isDown) {
       this.scene.start("room1");
-    }
+    };
   }
 
 }

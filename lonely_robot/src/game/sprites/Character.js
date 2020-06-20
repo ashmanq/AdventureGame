@@ -1,4 +1,4 @@
-import Phaser, { Sprite } from "phaser";
+import Phaser from "phaser";
 // import React from "react"
 class Character extends Phaser.Physics.Arcade.Sprite {
 

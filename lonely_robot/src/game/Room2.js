@@ -1,4 +1,7 @@
 import Phaser from 'phaser';
+import Character from "./sprites/Character.js";
+import Npc from  "./sprites/Npc.js";
+import CreateSpeechBox from "./textbox/SpeechBox.js";
 
 class Room2 extends Phaser.Scene {
 
@@ -31,13 +34,10 @@ class Room2 extends Phaser.Scene {
     this.background = this.add.tileSprite(0, 0, config.width, config.height, "r2_background");
     this.background.setOrigin(0, 0);
 
-    // Create Robot sprite
-    this.robot = this.add.sprite(this.startPosX, 390, "robotIdle");
-    this.robot.setScale(1.5);
-    this.physics.world.enable([ this.robot ]);
-    // Sets size of collision boundary
-    this.robot.body.setSize(70, 90);
-    this.robot.body.setCollideWorldBounds(true);
+    this.robot = new Character(this, this.startPosX, 390);
+    this.npc = new Npc(this, 600, 390, 'memoryStick', 'oldLady2');
+
+    // // Create Robot sprite
 
     if(this.data.returning) {
       this.robot.setFlip(true, false);
@@ -85,6 +85,13 @@ class Room2 extends Phaser.Scene {
       font: "25px Arial",
       fill: "yellow"
     });
+
+    // Speech Box
+    this.speechBox = CreateSpeechBox(this, 130, 470, {
+                 wrapWidth: config.width - 400,
+                 fixedWidth: config.width - 400,
+                 fixedHeight: 75,
+               })
 
 }
 

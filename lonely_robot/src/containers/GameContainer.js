@@ -1,17 +1,26 @@
 import React, { Component } from 'react';
-import Game from '../game/game.js';
+import GameComponent from '../components/GameComponent.js';
+import InventoryList from '../components/InventoryList.js';
 
 class GameContainer extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
-  componentDidMount() {
-    this.game = new Game(this)
-  }
-  render() {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      inventory: ["sword", "hammer", "cheese"],
+    }
+  };
+
+  render() {
     return(
-      <div id="game"></div>
+      <div className="game-container">
+        <h1>The Lonely Robot</h1>
+        <GameComponent />
+        <InventoryList />
+        <h2>Hi</h2>
+      </div>
+
     )
   }
 

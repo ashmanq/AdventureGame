@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import Character from "./sprites/Character.js"
 import Npc from  "./sprites/Npc.js"
-
+import CreateSpeechBox from "./textbox/SpeechBox.js";
 class Room1 extends Phaser.Scene {
 
 
@@ -18,13 +18,10 @@ class Room1 extends Phaser.Scene {
       this.startPosX = data.start_x_pos;
     }
 
-    console.log(this.startPosX);
   }
 
 
   create() {
-    this.robot = new Character(this, 150, 390);
-    this.npc = new Npc(this, 200, 390, 'chipdfdfdfd', 'oldLady');
     // Stop sprites from leaving boundary of scene
     this.physics.world.setBoundsCollision(true, true, true, true);
     const config = this.game.config;
@@ -36,12 +33,10 @@ class Room1 extends Phaser.Scene {
     this.background.setOrigin(0, 0);
 
     // Create Robot sprite
-    // this.robot = this.add.sprite(this.startPosX, 390, "robotIdle");
-    // this.robot.setScale(1.5);
-    // this.physics.world.enable([ this.robot ]);
-    // // Sets size of collision boundary
-    // this.robot.body.setSize(70, 90);
-    // this.robot.body.setCollideWorldBounds(true);
+    this.robot = new Character(this, this.startPosX, 390);
+    // Create NPC sprite
+    this.npc = new Npc(this, 600, 390, 'microchip', 'oldLady');
+
 
     if(this.data.returning) {
       this.robot.setFlip(true, false);
@@ -51,7 +46,7 @@ class Room1 extends Phaser.Scene {
     this.exitDoor = this.add.image(config.width - 10 , 366, "door");
     this.physics.world.enable([ this.exitDoor ]);
 
-    this.physics.add.overlap(this.robot,   this.exitDoor,     function() {
+    this.physics.add.overlap(this.robot, this.exitDoor, function() {
           this.scene.start("room2");
       }, null, this);
 
@@ -75,7 +70,19 @@ class Room1 extends Phaser.Scene {
       fill: "yellow"
     });
 
-}
+    this.text = "I am a speech text! Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    // const speechText = this.add.text(20, 20, this.text, {
+    //   font: "25px Arial",
+    //   fill: "white",
+    //   wordWrap: { width: config.width - 20 }
+    // });
+
+   this.speechBox = CreateSpeechBox(this, 130, 470, {
+                wrapWidth: config.width - 400,
+                fixedWidth: config.width - 400,
+                fixedHeight: 75,
+            }).start(this.text, 60)
+    }
 
 
     update(time, delta) {
