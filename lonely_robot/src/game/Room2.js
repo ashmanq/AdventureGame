@@ -4,9 +4,21 @@ class Room2 extends Phaser.Scene {
 
 
   constructor(props){
-    super("Room2");
+    super("room2");
 
   }
+
+  init(data) {
+    this.data = data;
+    // To position player depending on which room they've came from
+    this.startPosX = 80;
+    if(data.returning) {
+      this.startPosX = data.start_x_pos;
+    }
+
+    console.log(this.startPosX);
+  }
+
 
   create() {
     // Stop sprites from leaving boundary of scene
@@ -20,10 +32,16 @@ class Room2 extends Phaser.Scene {
     this.background.setOrigin(0, 0);
 
     // Create Robot sprite
-    this.robot = this.add.sprite(65, 420, "robotIdle");
-    this.robot.setScale(2);
+    this.robot = this.add.sprite(this.startPosX, 390, "robotIdle");
+    this.robot.setScale(1.5);
     this.physics.world.enable([ this.robot ]);
+    // Sets size of collision boundary
+    this.robot.body.setSize(70, 90);
     this.robot.body.setCollideWorldBounds(true);
+
+    if(this.data.returning) {
+      this.robot.setFlip(true, false);
+    }
 
     // Create Door sprite
     this.leftSideDoor = this.add.image(10 , 366, "door");
@@ -39,12 +57,13 @@ class Room2 extends Phaser.Scene {
             returning: true,
           }
           console.log("Trying to go back!");
-          this.scene.start("Room1", data);
+          this.scene.start("room1", data);
       }, null, this);
 
+
     this.physics.add.overlap(this.robot,   this.rightSideDoor,     function() {
-          // this.player.exiting = true;
           console.log("Trying to exit!");
+          this.scene.start("room3");
       }, null, this);
 
     //create animation

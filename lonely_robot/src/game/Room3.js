@@ -1,24 +1,23 @@
 import Phaser from 'phaser';
 
-class Room1 extends Phaser.Scene {
+class Room3 extends Phaser.Scene {
 
 
   constructor(props){
-    super("room1");
+    super("room3");
 
   }
 
   init(data) {
     this.data = data;
     // To position player depending on which room they've came from
-    this.startPosX = 50;
+    this.startPosX = 80;
     if(data.start_x_pos) {
       this.startPosX = data.start_x_pos;
     }
 
     console.log(this.startPosX);
   }
-
 
   create() {
     // Stop sprites from leaving boundary of scene
@@ -28,7 +27,7 @@ class Room1 extends Phaser.Scene {
     // Keyboard inputs
     this.keyboard = this.input.keyboard.addKeys("W, A, S, D, RIGHT, LEFT");
 
-    this.background = this.add.tileSprite(0, 0, config.width, config.height, "r1_background");
+    this.background = this.add.tileSprite(0, 0, config.width, config.height, "r3_background");
     this.background.setOrigin(0, 0);
 
     // Create Robot sprite
@@ -39,16 +38,25 @@ class Room1 extends Phaser.Scene {
     this.robot.body.setSize(70, 90);
     this.robot.body.setCollideWorldBounds(true);
 
-    if(this.data.returning) {
-      this.robot.setFlip(true, false);
-    }
-
     // Create Door sprite
-    this.exitDoor = this.add.image(config.width - 10 , 366, "door");
-    this.physics.world.enable([ this.exitDoor ]);
+    this.leftSideDoor = this.add.image(10 , 366, "door");
+    this.physics.world.enable([ this.leftSideDoor ]);
 
-    this.physics.add.overlap(this.robot,   this.exitDoor,     function() {
-          this.scene.start("room2");
+    this.rightSideDoor = this.add.image(config.width - 10 , 366, "door");
+    this.physics.world.enable([ this.rightSideDoor ]);
+
+    this.physics.add.overlap(this.robot,   this.leftSideDoor,     function() {
+          // this.player.exiting = true;
+          const data = {
+            start_x_pos: 700,
+            returning: true,
+          }
+          this.scene.start("room2", data);
+      }, null, this);
+
+
+    this.physics.add.overlap(this.robot,   this.rightSideDoor,     function() {
+          this.scene.start("endScreen");
       }, null, this);
 
     //create animation
@@ -62,7 +70,7 @@ class Room1 extends Phaser.Scene {
     this.anims.create({
       key: "robot_idle", //id
       frames: this.anims.generateFrameNumbers("robotIdle"),
-      frameRate: 7,
+      frameRate: 3,
       repeat: -1 //infinite loop
     });
 
@@ -77,7 +85,6 @@ class Room1 extends Phaser.Scene {
     update(time, delta) {
 
       this.physics.world.collide(this.robot);
-
 
       if(!this.keyboard.D.isDown && !this.keyboard.RIGHT.isDown === true
         && !this.keyboard.LEFT.isDown && !this.keyboard.A.isDown) {
@@ -96,12 +103,8 @@ class Room1 extends Phaser.Scene {
         this.robot.body.setVelocity(-160, 0)
         this.robot.play("robot_run", true);
       }
-
-
-
     }
-
 
 }
 
-export default Room1;
+export default Room3;

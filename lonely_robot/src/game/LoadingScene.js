@@ -2,27 +2,42 @@ import Phaser from 'phaser';
 
 class LoadingScene extends Phaser.Scene {
   constructor() {
-    super("LoadingGame");
+    super("loadingGame");
   }
 
   preload(){
-    this.load.image("r1_background", "/assets/images/scene1.png");
-    this.load.image("r2_background", "/assets/images/scene2.png");
+    this.load.image("r1_background", "/assets/images/room1.png");
+    this.load.image("r2_background", "/assets/images/room2.png");
+    this.load.image("r3_background", "/assets/images/room3.png");
 
     this.load.image("door", "/assets/images/door.png");
 
     // spritesheets is a collection of single file separated by frames
-    this.load.spritesheet("robotRun", "/assets/spritesheets/robotRun.png",{
+    // this.load.spritesheet("robotRun", "/assets/spritesheets/robotRun.png",{
+    //   //size of the frames
+    //   frameWidth: 42,
+    //   frameHeight: 36
+    // });
+
+    this.load.spritesheet("robotRun", "/assets/spritesheets/robotRun2.png",{
       //size of the frames
-      frameWidth: 42,
-      frameHeight: 36
+      frameWidth: 100,
+      frameHeight: 100
     });
 
-    this.load.spritesheet("robotIdle", "/assets/spritesheets/robotIdle.png",{
+    // this.load.spritesheet("robotIdle", "/assets/spritesheets/robotIdle.png",{
+    //   //size of the frames
+    //   frameWidth: 29,
+    //   frameHeight: 35
+    // });
+
+    this.load.spritesheet("robotIdle", "/assets/spritesheets/robot1.png",{
       //size of the frames
-      frameWidth: 29,
-      frameHeight: 35
+      frameWidth: 100,
+      frameHeight: 100
     });
+
+
 
     this.load.spritesheet("ship", "/assets/spritesheets/ship.png",{
       //size of the frames
@@ -67,7 +82,7 @@ class LoadingScene extends Phaser.Scene {
 
   update(time, delta) {
     if(this.enterKey.isDown) {
-      this.scene.start("Room1");
+      this.scene.start("room1");
     }
   }
 
