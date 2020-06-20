@@ -1,4 +1,6 @@
 import Phaser from 'phaser';
+import Character from "./sprites/Character.js"
+import Npc from  "./sprites/Npc.js"
 
 class Room1 extends Phaser.Scene {
 
@@ -21,6 +23,8 @@ class Room1 extends Phaser.Scene {
 
 
   create() {
+    this.robot = new Character(this, 150, 390);
+    this.npc = new Npc(this, 200, 390, 'chipdfdfdfd', 'oldLady');
     // Stop sprites from leaving boundary of scene
     this.physics.world.setBoundsCollision(true, true, true, true);
     const config = this.game.config;
@@ -32,12 +36,12 @@ class Room1 extends Phaser.Scene {
     this.background.setOrigin(0, 0);
 
     // Create Robot sprite
-    this.robot = this.add.sprite(this.startPosX, 390, "robotIdle");
-    this.robot.setScale(1.5);
-    this.physics.world.enable([ this.robot ]);
-    // Sets size of collision boundary
-    this.robot.body.setSize(70, 90);
-    this.robot.body.setCollideWorldBounds(true);
+    // this.robot = this.add.sprite(this.startPosX, 390, "robotIdle");
+    // this.robot.setScale(1.5);
+    // this.physics.world.enable([ this.robot ]);
+    // // Sets size of collision boundary
+    // this.robot.body.setSize(70, 90);
+    // this.robot.body.setCollideWorldBounds(true);
 
     if(this.data.returning) {
       this.robot.setFlip(true, false);

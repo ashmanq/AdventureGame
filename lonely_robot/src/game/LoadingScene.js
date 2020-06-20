@@ -9,6 +9,7 @@ class LoadingScene extends Phaser.Scene {
     this.load.image("r1_background", "/assets/images/room1.png");
     this.load.image("r2_background", "/assets/images/room2.png");
     this.load.image("r3_background", "/assets/images/room3.png");
+    this.load.image("oldLady", "/assets/images/oldLady.png");
 
     this.load.image("door", "/assets/images/door.png");
 
