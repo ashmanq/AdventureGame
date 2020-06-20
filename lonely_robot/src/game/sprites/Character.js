@@ -22,11 +22,18 @@ class Character extends Phaser.Physics.Arcade.Sprite {
         this.setScale(1.5);
         // this.physics.world.enable([this]);
         this.setCollideWorldBounds(true);
+        this.setData(
+          {
+             name: "inventory",
+             items: [],
 
+        })
+
+        // sprite.setData({ name: 'Red Gem Stone', level: 2, owner: 'Link', gold: 50 });
         this.setDepth(10);
         this.body.onWorldBounds = true;
         this.body.setSize(70, 90);
-
+        this.data.set("talking", false);
     }
 
 }

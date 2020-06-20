@@ -27,7 +27,7 @@ class Room1 extends Phaser.Scene {
     const config = this.game.config;
 
     // Keyboard inputs
-    this.keyboard = this.input.keyboard.addKeys("W, A, S, D, RIGHT, LEFT");
+    this.keyboard = this.input.keyboard.addKeys("W, A, S, D, RIGHT, LEFT, ENTER");
 
     this.background = this.add.tileSprite(0, 0, config.width, config.height, "r1_background");
     this.background.setOrigin(0, 0);
@@ -49,6 +49,14 @@ class Room1 extends Phaser.Scene {
     this.physics.add.overlap(this.robot, this.exitDoor, function() {
           this.scene.start("room2");
       }, null, this);
+
+    //player position
+    // if(this.player.position.x === this.oldWoman.position.x){
+    //   trigger the text
+    //   stop the player movement
+    // }
+    
+
 
     //create animation
     this.anims.create({
@@ -81,7 +89,7 @@ class Room1 extends Phaser.Scene {
                 wrapWidth: config.width - 400,
                 fixedWidth: config.width - 400,
                 fixedHeight: 75,
-            }).start(this.text, 60)
+            })
     }
 
 
