@@ -9,6 +9,28 @@ body {
   text-align: center;
 }
 
+.container {
+  background: red;
+  padding: 10px;
+  margin: 20px;
+  border-radius: 5px;
+}
+
+.inventory-list{
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  background: red;
+}
+
+.inventory-item {
+  padding:10px;
+  margin:10px;
+  font-weight: bold;
+  text-transform: capitalize;
+  background-color: aquamarine;
+}
+
 .App {
   text-align: center;
 }
