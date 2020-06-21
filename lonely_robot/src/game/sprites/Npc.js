@@ -25,6 +25,9 @@ class Npc extends Phaser.Physics.Arcade.Sprite {
         this.setData("requiredItem", requiredItem);
         this.setData("itemToGive", itemToGive);
         this.setData("speech", speech);
+        this.setData("icon", name);
+
+        this.setInteractive();
 
     }
 
@@ -32,7 +35,7 @@ class Npc extends Phaser.Physics.Arcade.Sprite {
 
       if(item === this.requiredItem) {
         this.data.values.taskCompleted = true;
-      } 
+      }
     }
 
 }

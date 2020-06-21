@@ -1,9 +1,9 @@
 import Phaser from 'phaser';
-import Character from "./sprites/Character.js";
-import Npc from  "./sprites/Npc.js";
-import CreateSpeechBox from "./textbox/SpeechBox.js";
-import Speech from "./sprites/Speech.js";
-import Item from './sprites/Item.js';
+import Character from "../sprites/Character.js";
+import Npc from  "../sprites/Npc.js";
+import CreateSpeechBox from "../textbox/SpeechBox.js";
+import Speech from "../sprites/Speech.js";
+import Item from '../sprites/Item.js';
 
 
 class Room1 extends Phaser.Scene {
@@ -13,6 +13,7 @@ class Room1 extends Phaser.Scene {
 
     this.requiredItem = "drawing";
     this.itemToGet = "microchip";
+    this.isTalking = false;
   }
 
   init(data) {
@@ -36,74 +37,73 @@ class Room1 extends Phaser.Scene {
     // Keyboard inputs
     this.keyboard = this.input.keyboard.addKeys("W, A, S, D, RIGHT, LEFT, ENTER");
 
+    // Load background
     this.background = this.add.tileSprite(0, 0, config.width, config.height, "r1_background");
     this.background.setOrigin(0, 0);
 
     // Create Robot sprite
     this.robot = new Character(this, this.startPosX, 390);
 
-    // Create NPC sprite
-    this.npc = new Npc(this, 600, 390, this.requiredItem, this.itemToGet, 'oldLady', Speech[0]);
-
-    // Item in room
-    if(!this.game.gameData.room1Complete) {
-      this.item = new Item(this, 120, 368, this.requiredItem);
-      this.physics.world.enable([ this.item ]);
-    }
-
-
+    // If the character is returning to the room then we flip its direction
     if(this.data.returning) {
       this.robot.setFlip(true, false);
     }
 
-    // Create Door sprite
+    // Create NPC sprite
+    this.npc = new Npc(this, 600, 390, this.requiredItem, this.itemToGet, 'oldLady', Speech[0]);
+
+    // Create item in room
+    if(!this.game.gameData.room1Complete) {
+      this.item = new Item(this, 120, 368, this.requiredItem);
+    }
+
+    // Create Door sprite for exit
     this.exitDoor = this.add.image(config.width - 10 , 366, "door");
+    this.exitDoor.setInteractive();
 
     // Enable physics for collision detection
     this.physics.world.enable([ this.exitDoor ]);
 
+    // Handle when character touches exit door
     this.physics.add.overlap(this.robot, this.exitDoor,
       function() {
-        // const data = {
-        //   inventory: this.robot.getData('inventory')
-        // }
         this.scene.start("room2");
       },
       function() {
         const found = this.game.inventory.find((item) => {
           return item === this.itemToGet;
         });
-        console.log(found);
         if (found) {
           return true;
         } return false;
       }, this);
 
-    // When overlaping NPC
-    this.physics.add.overlap(this.robot, this.npc, function() {
-      const speech = (this.robot.speak(this.npc, this.game.inventory));
-      this.speechBox.start(speech, 60);
-    },function() {
-      // Check to see if the following is true beforehand
-      if (!this.robot.data.values.isTalking && this.keyboard.ENTER.isDown){
-        this.robot.data.values.isTalking = true;
-        return true;
-      } return false;
-    }, this);
+      this.exitDoor.on('pointerdown', function() {
+        const found = this.game.inventory.find((item) => {
+          return item === this.itemToGet;
+        });
+        if (!found) {
+          this.speechBox.start(`[color=red]Door is locked![/color]`, 60);
+        } else {
+          this.speechBox.start(`[color=green]The door is now unlocked![/color]`, 60);
+        }
+      }, this)
 
-    // When main character overlaps an item
-    this.physics.add.overlap(this.robot, this.item, function() {
+
+    // When clicking on npc
+    this.npc.on('pointerdown', function() {
+      const speech = (this.robot.speak(this.npc, this.game.inventory));
+      this.speechBox.icon = this.npc;
+      this.speechBox.start(speech, 60);
+    }, this)
+
+
+    // When clicking on item
+    this.item.on('pointerdown', function() {
       this.game.inventory.push(this.item.name);
       this.item.destroy();
-      this.speechBox.start("You have found a microchip!", 60);
-      console.log(this.game.inventory);
-    },function() {
-      // Check to see if the following is true beforehand
-      if (this.keyboard.ENTER.isDown && !this.item.found){
-        this.item.found = true;
-        return true;
-      } return false;
-    }, this);
+      this.speechBox.start(`You have found a ${this.item.name}!`, 60);
+    }, this)
 
 
     //create animation
@@ -136,10 +136,7 @@ class Room1 extends Phaser.Scene {
 
 
     update(time, delta) {
-
-      this.physics.world.collide(this.robot);
-
-
+      // console.log(this.game.inventory);
       if(!this.keyboard.D.isDown && !this.keyboard.RIGHT.isDown === true
         && !this.keyboard.LEFT.isDown && !this.keyboard.A.isDown) {
         this.robot.body.setVelocity(0,0);
@@ -148,18 +145,19 @@ class Room1 extends Phaser.Scene {
 
       if(this.keyboard.D.isDown === true || this.keyboard.RIGHT.isDown === true) {
         this.robot.setFlip(false, false);
-        this.robot.body.setVelocity(160, 0)
+        this.robot.body.setVelocity(300, 0)
         this.robot.play("robot_run", true);
       }
 
       if(this.keyboard.A.isDown === true || this.keyboard.LEFT.isDown === true) {
         this.robot.setFlip(true, false);
-        this.robot.body.setVelocity(-160, 0)
+        this.robot.body.setVelocity(-300, 0)
         this.robot.play("robot_run", true);
       }
 
 
     }
+
 
 
 }

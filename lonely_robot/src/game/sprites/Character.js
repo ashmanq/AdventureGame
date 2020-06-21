@@ -57,7 +57,6 @@ class Character extends Phaser.Physics.Arcade.Sprite {
 
           inventory.push(npc.data.values.itemToGive);
           npc.data.values.taskCompleted = true;
-
           return npc.data.values.speech.taskSuccess;
         }
       }

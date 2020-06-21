@@ -11,7 +11,6 @@ const CreateSpeechBox = function (scene, x, y, config, character) {
   const fixedWidth = GetValue(config, 'fixedWidth', 0);
   const fixedHeight = GetValue(config, 'fixedHeight', 0);
 
-
   var textBox = scene.rexUI.add.textBox({
           x: x,
           y: y,
@@ -52,10 +51,8 @@ const CreateSpeechBox = function (scene, x, y, config, character) {
       }, textBox)
       .on('pageend', function () {
           if (this.isLastPage) {
-            character.setData('isTalking', false);
             return;
           }
-
           var icon = this.getElement('action').setVisible(true);
           this.resetChildVisibleState(icon);
           icon.y -= 30;
