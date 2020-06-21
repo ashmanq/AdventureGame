@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import Character from "./sprites/Character.js";
 import Npc from  "./sprites/Npc.js";
+import Speech from "./sprites/Speech.js"
 import CreateSpeechBox from "./textbox/SpeechBox.js";
 
 class Room2 extends Phaser.Scene {
@@ -8,6 +9,9 @@ class Room2 extends Phaser.Scene {
 
   constructor(props){
     super("room2");
+
+    this.requiredItem = "battery";
+    this.itemToGet = "bread";
 
   }
 
@@ -19,7 +23,8 @@ class Room2 extends Phaser.Scene {
       this.startPosX = data.start_x_pos;
     }
 
-    console.log(this.startPosX);
+    this.game.gameData.room1Complete = true;
+    console.log(this.game.inventory);
   }
 
 
@@ -35,7 +40,10 @@ class Room2 extends Phaser.Scene {
     this.background.setOrigin(0, 0);
 
     this.robot = new Character(this, this.startPosX, 390);
-    this.npc = new Npc(this, 600, 390, 'memoryStick', 'oldLady2');
+    // if(this.data.inventory) {
+    //   this.robot.setInventory(this.data.inventory)
+    // }
+    this.npc = new Npc(this, 600, 390, 'bread', 'memoryStick', 'oldLady2', Speech[1]);
 
     // // Create Robot sprite
 
@@ -51,18 +59,19 @@ class Room2 extends Phaser.Scene {
     this.physics.world.enable([ this.rightSideDoor ]);
 
     this.physics.add.overlap(this.robot,   this.leftSideDoor,     function() {
-          // this.player.exiting = true;
           const data = {
             start_x_pos: 700,
             returning: true,
+            // inventory: this.robot.getData('inventory')
           }
-          console.log("Trying to go back!");
           this.scene.start("room1", data);
       }, null, this);
 
 
     this.physics.add.overlap(this.robot,   this.rightSideDoor,     function() {
-          console.log("Trying to exit!");
+          // const data = {
+          //   inventory: this.robot.getData('inventory')
+          // };
           this.scene.start("room3");
       }, null, this);
 

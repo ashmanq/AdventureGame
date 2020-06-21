@@ -4,12 +4,13 @@ const COLOR_PRIMARY = 0x4e342e;
 const COLOR_LIGHT = 0x7b5e57;
 const COLOR_DARK = 0x260e04;
 
-const CreateSpeechBox = function (scene, x, y, config) {
+const CreateSpeechBox = function (scene, x, y, config, character) {
 
   const GetValue = Phaser.Utils.Objects.GetValue;
   const wrapWidth = GetValue(config, 'wrapWidth', 0);
   const fixedWidth = GetValue(config, 'fixedWidth', 0);
   const fixedHeight = GetValue(config, 'fixedHeight', 0);
+
 
   var textBox = scene.rexUI.add.textBox({
           x: x,
@@ -44,13 +45,15 @@ const CreateSpeechBox = function (scene, x, y, config) {
           this.resetChildVisibleState(icon);
           if (this.isTyping) {
               this.stop(true);
-          } else {
+          }
+          else {
               this.typeNextPage();
           }
       }, textBox)
       .on('pageend', function () {
           if (this.isLastPage) {
-              return;
+            character.setData('isTalking', false);
+            return;
           }
 
           var icon = this.getElement('action').setVisible(true);

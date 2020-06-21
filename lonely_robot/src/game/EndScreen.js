@@ -8,6 +8,10 @@ class EndScreen extends Phaser.Scene {
     this.text = "End!";
   }
 
+  init() {
+    this.game.gameData.room3Complete = true;
+  }
+
   create() {
 
     // Keyboard inputs

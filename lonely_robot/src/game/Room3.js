@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import Character from "./sprites/Character.js"
 import Npc from  "./sprites/Npc.js"
+import Speech from "./sprites/Speech.js"
 import CreateSpeechBox from "./textbox/SpeechBox.js";
 
 class Room3 extends Phaser.Scene {
@@ -19,7 +20,8 @@ class Room3 extends Phaser.Scene {
       this.startPosX = data.start_x_pos;
     }
 
-    console.log(this.startPosX);
+    this.game.gameData.room2Complete = true;
+    console.log(this.game.inventory);
   }
 
   create() {
@@ -33,16 +35,14 @@ class Room3 extends Phaser.Scene {
     this.background = this.add.tileSprite(0, 0, config.width, config.height, "r3_background");
     this.background.setOrigin(0, 0);
 
+    // Create Robot sprite
     this.robot = new Character(this, this.startPosX, 390);
-    this.npc = new Npc(this, 600, 390, 'key', 'oldLady3');
 
-    // // Create Robot sprite
-    // this.robot = this.add.sprite(this.startPosX, 390, "robotIdle");
-    // this.robot.setScale(1.5);
-    // this.physics.world.enable([ this.robot ]);
-    // // Sets size of collision boundary
-    // this.robot.body.setSize(70, 90);
-    // this.robot.body.setCollideWorldBounds(true);
+    // Create NPC Character
+    this.npc = new Npc(this, 600, 390, 'cheese', 'key', 'oldLady3', Speech[2]);
+
+
+
 
     // Create Door sprite
     this.leftSideDoor = this.add.image(10 , 366, "door");
@@ -56,13 +56,18 @@ class Room3 extends Phaser.Scene {
           const data = {
             start_x_pos: 700,
             returning: true,
+            inventory: this.robot.getData('inventory')
           }
           this.scene.start("room2", data);
       }, null, this);
 
 
-    this.physics.add.overlap(this.robot,   this.rightSideDoor,     function() {
-          this.scene.start("endScreen");
+    this.physics.add.overlap(this.robot, this.rightSideDoor, function() {
+      // We reset global game data when the game ends
+      this.game.gameData = { room1Complete: false, room2Complete: false, room3Complete: false };
+      this.game.inventory = [];
+      this.scene.start("endScreen");
+
       }, null, this);
 
     //create animation

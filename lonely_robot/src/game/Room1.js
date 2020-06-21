@@ -1,13 +1,18 @@
 import Phaser from 'phaser';
-import Character from "./sprites/Character.js"
-import Npc from  "./sprites/Npc.js"
+import Character from "./sprites/Character.js";
+import Npc from  "./sprites/Npc.js";
 import CreateSpeechBox from "./textbox/SpeechBox.js";
-class Room1 extends Phaser.Scene {
+import Speech from "./sprites/Speech.js";
+import Item from './sprites/Item.js';
 
+
+class Room1 extends Phaser.Scene {
 
   constructor(props){
     super("room1");
 
+    this.requiredItem = "drawing";
+    this.itemToGet = "microchip";
   }
 
   init(data) {
@@ -18,6 +23,8 @@ class Room1 extends Phaser.Scene {
       this.startPosX = data.start_x_pos;
     }
 
+    console.log(this.game.inventory);
+    console.log(this.game.gameData);
   }
 
 
@@ -34,8 +41,15 @@ class Room1 extends Phaser.Scene {
 
     // Create Robot sprite
     this.robot = new Character(this, this.startPosX, 390);
+
     // Create NPC sprite
-    this.npc = new Npc(this, 600, 390, 'microchip', 'oldLady');
+    this.npc = new Npc(this, 600, 390, this.requiredItem, this.itemToGet, 'oldLady', Speech[0]);
+
+    // Item in room
+    if(!this.game.gameData.room1Complete) {
+      this.item = new Item(this, 120, 368, this.requiredItem);
+      this.physics.world.enable([ this.item ]);
+    }
 
 
     if(this.data.returning) {
@@ -44,18 +58,52 @@ class Room1 extends Phaser.Scene {
 
     // Create Door sprite
     this.exitDoor = this.add.image(config.width - 10 , 366, "door");
+
+    // Enable physics for collision detection
     this.physics.world.enable([ this.exitDoor ]);
 
-    this.physics.add.overlap(this.robot, this.exitDoor, function() {
-          this.scene.start("room2");
-      }, null, this);
+    this.physics.add.overlap(this.robot, this.exitDoor,
+      function() {
+        // const data = {
+        //   inventory: this.robot.getData('inventory')
+        // }
+        this.scene.start("room2");
+      },
+      function() {
+        const found = this.game.inventory.find((item) => {
+          return item === this.itemToGet;
+        });
+        console.log(found);
+        if (found) {
+          return true;
+        } return false;
+      }, this);
 
-    //player position
-    // if(this.player.position.x === this.oldWoman.position.x){
-    //   trigger the text
-    //   stop the player movement
-    // }
-    
+    // When overlaping NPC
+    this.physics.add.overlap(this.robot, this.npc, function() {
+      const speech = (this.robot.speak(this.npc, this.game.inventory));
+      this.speechBox.start(speech, 60);
+    },function() {
+      // Check to see if the following is true beforehand
+      if (!this.robot.data.values.isTalking && this.keyboard.ENTER.isDown){
+        this.robot.data.values.isTalking = true;
+        return true;
+      } return false;
+    }, this);
+
+    // When main character overlaps an item
+    this.physics.add.overlap(this.robot, this.item, function() {
+      this.game.inventory.push(this.item.name);
+      this.item.destroy();
+      this.speechBox.start("You have found a microchip!", 60);
+      console.log(this.game.inventory);
+    },function() {
+      // Check to see if the following is true beforehand
+      if (this.keyboard.ENTER.isDown && !this.item.found){
+        this.item.found = true;
+        return true;
+      } return false;
+    }, this);
 
 
     //create animation
@@ -78,18 +126,12 @@ class Room1 extends Phaser.Scene {
       fill: "yellow"
     });
 
-    this.text = "I am a speech text! Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-    // const speechText = this.add.text(20, 20, this.text, {
-    //   font: "25px Arial",
-    //   fill: "white",
-    //   wordWrap: { width: config.width - 20 }
-    // });
 
    this.speechBox = CreateSpeechBox(this, 130, 470, {
                 wrapWidth: config.width - 400,
                 fixedWidth: config.width - 400,
                 fixedHeight: 75,
-            })
+            }, this.robot)
     }
 
 
@@ -115,7 +157,6 @@ class Room1 extends Phaser.Scene {
         this.robot.body.setVelocity(-160, 0)
         this.robot.play("robot_run", true);
       }
-
 
 
     }

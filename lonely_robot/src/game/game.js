@@ -9,12 +9,12 @@ import EndScreen from './EndScreen.js';
 
 class Game extends Phaser.Game {
   constructor(react) {
+
     const config = {
       title: "The Lonely Robot",
-      version: 'v0.1',
+      version: '0.1',
       autoFocus: true,
       parent: 'game',
-
 
       width: 800,
       height: 600,
@@ -32,18 +32,20 @@ class Game extends Phaser.Game {
         }
       },
       plugins: {
-        scene: [{
-        key: 'rexUI',
-        plugin: RexUIPlugin,
-        mapping: 'rexUI'
-    },
-    // ...
-    ]
-}
+        scene: [
+          {
+            key: 'rexUI',
+            plugin: RexUIPlugin,
+            mapping: 'rexUI'
+          },
+        ]
+      }
     }
 
     super(config);
     this.react = react;
+    this.gameData = { room1Complete: false, room2Complete: false, room3Complete:false}
+    this.inventory = [];
   }
 }
 
