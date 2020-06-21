@@ -11,9 +11,8 @@ class Room1 extends Phaser.Scene {
   constructor(props){
     super("room1");
 
-    this.requiredItem = "drawing";
-    this.itemToGet = "microchip";
-    this.isTalking = false;
+    this.requiredItem = {name: "drawing", description: "a drawing. It's a picture of a square tank"};
+    this.itemToGet = {name: "microchip", description: "a microchip. It's seen better days."};
   }
 
   init(data) {
@@ -23,13 +22,18 @@ class Room1 extends Phaser.Scene {
     if(data.start_x_pos) {
       this.startPosX = data.start_x_pos;
     }
-
-    console.log(this.game.inventory);
-    console.log(this.game.gameData);
+    this.inventory = this.registry.get("inventory");
+    this.gameData = this.registry.get("gameData");
+    console.log(this.inventory);
+    console.log(this.gameData);
   }
 
 
   create() {
+    // We create an event emitter to handle when inventory is updated
+    // and the task for the room is complete
+    this.emitter = new Phaser.Events.EventEmitter();
+
     // Stop sprites from leaving boundary of scene
     this.physics.world.setBoundsCollision(true, true, true, true);
     const config = this.game.config;
@@ -53,8 +57,8 @@ class Room1 extends Phaser.Scene {
     this.npc = new Npc(this, 600, 390, this.requiredItem, this.itemToGet, 'oldLady', Speech[0]);
 
     // Create item in room
-    if(!this.game.gameData.room1Complete) {
-      this.item = new Item(this, 120, 368, this.requiredItem);
+    if(!this.gameData.room1Complete) {
+      this.item = new Item(this, 120, 368, this.requiredItem, "a drawing");
     }
 
     // Create Door sprite for exit
@@ -70,8 +74,8 @@ class Room1 extends Phaser.Scene {
         this.scene.start("room2");
       },
       function() {
-        const found = this.game.inventory.find((item) => {
-          return item === this.itemToGet;
+        const found = this.inventory.find((item) => {
+          return item.name === this.itemToGet.name;
         });
         if (found) {
           return true;
@@ -79,8 +83,8 @@ class Room1 extends Phaser.Scene {
       }, this);
 
       this.exitDoor.on('pointerdown', function() {
-        const found = this.game.inventory.find((item) => {
-          return item === this.itemToGet;
+        const found = this.inventory.find((item) => {
+          return item.name === this.itemToGet.name;
         });
         if (!found) {
           this.speechBox.start(`[color=red]Door is locked![/color]`, 60);
@@ -92,18 +96,27 @@ class Room1 extends Phaser.Scene {
 
     // When clicking on npc
     this.npc.on('pointerdown', function() {
-      const speech = (this.robot.speak(this.npc, this.game.inventory));
-      this.speechBox.icon = this.npc;
+      const speech = (this.robot.interact(this.npc, this));
       this.speechBox.start(speech, 60);
     }, this)
 
 
     // When clicking on item
     this.item.on('pointerdown', function() {
-      this.game.inventory.push(this.item.name);
+      this.inventory.push(this.item);
+      this.emitter.emit('inventory-updated');
       this.item.destroy();
-      this.speechBox.start(`You have found a ${this.item.name}!`, 60);
+      this.speechBox.start(`You have found ${this.item.description}!`, 60);
     }, this)
+
+    this.emitter.on('inventory-updated', () => {
+      this.game.updateInventory(this.inventory);
+    })
+
+    this.emitter.on('task-completed', () => {
+      this.gameData.room1Complete = true;
+    })
+
 
 
     //create animation
@@ -136,7 +149,7 @@ class Room1 extends Phaser.Scene {
 
 
     update(time, delta) {
-      // console.log(this.game.inventory);
+
       if(!this.keyboard.D.isDown && !this.keyboard.RIGHT.isDown === true
         && !this.keyboard.LEFT.isDown && !this.keyboard.A.isDown) {
         this.robot.body.setVelocity(0,0);

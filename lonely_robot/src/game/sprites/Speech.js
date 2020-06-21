@@ -2,9 +2,10 @@
   const Speech = [
     {
       npc: "oldLady1",
-      speech: ["Hello there what are you doing here?", "Polly want a cracker?", "Can you find me a great drawing?"],
-      taskIncomplete: "Have you not found it yet?",
-      taskSuccess: "Here you go!",
+      speech: ["The door is locked, but I'll let you through if you help me find my lost drawing.",
+                "It's a one of a kind piece of art!", "Find it for me and I'll let you through."],
+      taskIncomplete: "Have you not found my drawing yet?",
+      taskSuccess: "You found it! Those beautiful, brutal straight lines! Colin Riddel was a true master of art! Here take this microchip I have one me, I have no use for it.",
       taskComplete: "Thanks for the drawing!"
     },
     {

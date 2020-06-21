@@ -10,24 +10,25 @@ class GameContainer extends Component {
     this.state = {
       inventory: [{name: "sword"}, {name: "hammer"}, {name: "cheese"}],
     }
+
+    this.updateInventory = this.updateInventory.bind(this);
   };
 
-  // removeInventory(itemName) {
-  //   const found = this.state.inventory.filter((item) => {
-  //     return item.name === itemName;
-  //   })
+  updateInventory(inventory) {
+    this.setState({inventory: inventory})
+    console.log(inventory);
   //
   //   if(found) {
   //     const array = [...this.state.inventory];
   //     const index = this.state.inventory.indexOf(found);
   //   }
-  // }
+  }
 
   render() {
     return(
       <div className="game-container">
         <h1>The Lonely Robot</h1>
-        <GameComponent />
+        <GameComponent updateInventory={this.updateInventory}/>
         <InventoryList inventory={this.state.inventory}/>
       </div>
 

@@ -6,18 +6,14 @@ class Character extends Phaser.Physics.Arcade.Sprite {
     {
         super(scene, x, y, 'robotIdle');
 
-        //  You can either do this:
         scene.add.existing(this);
         scene.physics.add.existing(this);
 
-
         //  Set some default physics properties
         this.setScale(1.5);
-        // this.physics.world.enable([this]);
         this.setCollideWorldBounds(true);
         this.setData(
           {
-             // inventory: [],
              isTalking: false,
              canMove: true,
              speechCounter: 0
@@ -27,16 +23,10 @@ class Character extends Phaser.Physics.Arcade.Sprite {
         this.body.onWorldBounds = true;
         this.body.setSize(70, 90);
 
-
     }
-    //
-    // setInventory(items) {
-    //   this.setData('inventory', items);
-    // }
 
-    speak(npc, inventory) {
-
-
+    interact(npc, scene) {
+      // If task is complete then no more interaction is needed
       if (npc.data.values.taskCompleted) return npc.data.values.speech.taskComplete;
 
       if(!npc.data.values.taskInProgress) {
@@ -47,21 +37,26 @@ class Character extends Phaser.Physics.Arcade.Sprite {
       const requiredItem = npc.data.values.requiredItem;
 
       // Search inventory to see if we have the item
-      const found = inventory.findIndex((item) => {
-        return item === requiredItem;
+      const found = scene.inventory.findIndex((item) => {
+        return item.name === requiredItem.name;
       })
 
       if(found !== -1) {
 
         if(!npc.data.values.taskCompleted) {
-
-          inventory.push(npc.data.values.itemToGive);
+          // We add the item given by NPC and remove the item we give to the NPC
+          scene.inventory.push(npc.data.values.itemToGive);
+          scene.inventory.splice(found, 1);
           npc.data.values.taskCompleted = true;
+
+          // Emit to indicate inventory update and task completion
+          scene.emitter.emit('task-completed');
+          scene.emitter.emit('inventory-updated');
           return npc.data.values.speech.taskSuccess;
         }
       }
       else {
-        return "Still to get item!";
+        return npc.getData('speech').taskIncomplete;
       }
 
     }

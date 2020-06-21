@@ -5,8 +5,8 @@ const InventoryList = (props) => {
 
   if(!props.inventory) return null;
 
-  const inventoryItems = props.inventory.map((item) => {
-    return <InventoryListItem name={item.name}/>
+  const inventoryItems = props.inventory.map((item, index) => {
+    return <InventoryListItem name={item.name} key={index}/>
   })
   return (
     <div className="container">

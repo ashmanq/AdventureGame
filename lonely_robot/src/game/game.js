@@ -8,7 +8,7 @@ import EndScreen from './scenes/EndScreen.js';
 
 
 class Game extends Phaser.Game {
-  constructor(react) {
+  constructor(react, props) {
 
     const config = {
       title: "The Lonely Robot",
@@ -44,8 +44,15 @@ class Game extends Phaser.Game {
 
     super(config);
     this.react = react;
-    this.gameData = { room1Complete: false, room2Complete: false, room3Complete:false}
-    this.inventory = [];
+    this.registry.set('gameData', { room1Complete: false, room2Complete: false, room3Complete:false});
+    this.registry.set("inventory", []);
+    console.log(this.registry.get("inventory"));
+    this.updateInventory = props.updateInventory;
+    props.updateInventory(this.inventory);
+
+
+
+
   }
 }
 
