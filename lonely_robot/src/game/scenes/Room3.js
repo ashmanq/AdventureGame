@@ -117,6 +117,7 @@ class Room3 extends Phaser.Scene {
     this.item.on('pointerdown', function() {
       this.inventory.push(this.item);
       this.item.destroy();
+      this.emitter.emit('inventory-updated');
       this.speechBox.start(`You have found ${this.item.description}!`, 60);
     }, this);
 

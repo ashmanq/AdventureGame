@@ -10,6 +10,9 @@ class EndScreen extends Phaser.Scene {
 
 
   create() {
+    // Stop them music
+    this.game.music.stop();
+    
     this.registry.set("inventory", []);
     this.registry.set("gameData", { room1Complete: false, room2Complete: false, room3Complete: false });
 

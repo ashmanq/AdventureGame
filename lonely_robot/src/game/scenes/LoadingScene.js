@@ -6,6 +6,9 @@ class LoadingScene extends Phaser.Scene {
   }
 
   preload(){
+    // Load music
+    this.load.audio('main', '/assets/music/mainTheme.mp3');
+
     // Load background images
     this.load.image("r1_background", "/assets/images/backgrounds/room1.png");
     this.load.image("r2_background", "/assets/images/backgrounds/room2.png");
@@ -31,25 +34,12 @@ class LoadingScene extends Phaser.Scene {
     this.load.image('nextPage', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/assets/images/arrow-down-left.png');
 
 
-
-    // spritesheets is a collection of single file separated by frames
-    // this.load.spritesheet("robotRun", "/assets/spritesheets/robotRun.png",{
-    //   //size of the frames
-    //   frameWidth: 42,
-    //   frameHeight: 36
-    // });
-
     this.load.spritesheet("robotRun", "/assets/spritesheets/robotRun2.png",{
       //size of the frames
       frameWidth: 100,
       frameHeight: 100
     });
 
-    // this.load.spritesheet("robotIdle", "/assets/spritesheets/robotIdle.png",{
-    //   //size of the frames
-    //   frameWidth: 29,
-    //   frameHeight: 35
-    // });
 
     this.load.spritesheet("robotIdle", "/assets/spritesheets/robot1.png",{
       //size of the frames
@@ -86,6 +76,11 @@ class LoadingScene extends Phaser.Scene {
 
 }
   create() {
+  this.game.music = this.sound.add('main');
+  this.game.music.loop = true;
+  this.game.music.play();
+  console.log(this.game.music);
+
   this.add.text(20, 20, "..based on a true story...");
   this.add.text(20, 50, "..created by Francesco Dama and Ashir Qureshi..");
   this.add.text(20, 80,"..or Ashir Dama and Francesco Qureshi ??");

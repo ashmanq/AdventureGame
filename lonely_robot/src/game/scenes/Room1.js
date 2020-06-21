@@ -30,6 +30,7 @@ class Room1 extends Phaser.Scene {
 
 
   create() {
+
     // We create an event emitter to handle when inventory is updated
     // and the task for the room is complete
     this.emitter = new Phaser.Events.EventEmitter();

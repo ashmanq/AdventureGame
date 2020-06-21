@@ -23,8 +23,11 @@ class GameContainer extends Component {
     return(
       <div className="game-container">
         <h1>The Lonely Robot</h1>
-        <GameComponent updateInventory={this.updateInventory}/>
-        <InventoryList inventory={this.state.inventory}/>
+        <div className = "row">
+          <GameComponent updateInventory={this.updateInventory}/>
+          <InventoryList inventory={this.state.inventory}/>
+        </div>
+
       </div>
 
     )

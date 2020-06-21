@@ -6,7 +6,7 @@ const InventoryListItem = (props) => {
   return(
     <li className="inventory-item">
       <img src={`assets/images/items/${props.name}.png`} alt=""/>
-      <h3>{ props.name }</h3>
+      <p>{ props.name }</p>
     </li>
   )
 }

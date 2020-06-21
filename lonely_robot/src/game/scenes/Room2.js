@@ -32,6 +32,8 @@ class Room2 extends Phaser.Scene {
 
 
   create() {
+    this.music = this.sound.add('main');
+    this.music.stop();
 
     // We create an event emitter to handle when inventory is updated
     // and the task for the room is complete
