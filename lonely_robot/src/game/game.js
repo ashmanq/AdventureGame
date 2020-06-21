@@ -1,20 +1,20 @@
 import Phaser from 'phaser';
 import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
-import LoadingScene from './LoadingScene.js';
-import Room1 from './Room1.js';
-import Room2 from './Room2.js';
-import Room3 from './Room3.js';
-import EndScreen from './EndScreen.js';
+import LoadingScene from './scenes/LoadingScene.js';
+import Room1 from './scenes/Room1.js';
+import Room2 from './scenes/Room2.js';
+import Room3 from './scenes/Room3.js';
+import EndScreen from './scenes/EndScreen.js';
 
 
 class Game extends Phaser.Game {
   constructor(react) {
+
     const config = {
       title: "The Lonely Robot",
-      version: 'v0.1',
+      version: '0.1',
       autoFocus: true,
       parent: 'game',
-
 
       width: 800,
       height: 600,
@@ -32,18 +32,20 @@ class Game extends Phaser.Game {
         }
       },
       plugins: {
-        scene: [{
-        key: 'rexUI',
-        plugin: RexUIPlugin,
-        mapping: 'rexUI'
-    },
-    // ...
-    ]
-}
+        scene: [
+          {
+            key: 'rexUI',
+            plugin: RexUIPlugin,
+            mapping: 'rexUI'
+          },
+        ]
+      }
     }
 
     super(config);
     this.react = react;
+    this.gameData = { room1Complete: false, room2Complete: false, room3Complete:false}
+    this.inventory = [];
   }
 }
 

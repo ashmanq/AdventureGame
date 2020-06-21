@@ -6,16 +6,31 @@ class LoadingScene extends Phaser.Scene {
   }
 
   preload(){
-    this.load.image("r1_background", "/assets/images/room1.png");
-    this.load.image("r2_background", "/assets/images/room2.png");
-    this.load.image("r3_background", "/assets/images/room3.png");
-    this.load.image("oldLady", "/assets/images/oldLady.png");
-    this.load.image("oldLady2", "/assets/images/oldLady2.png");
-    this.load.image("oldLady3", "/assets/images/oldLady3.png");
+    // Load background images
+    this.load.image("r1_background", "/assets/images/backgrounds/room1.png");
+    this.load.image("r2_background", "/assets/images/backgrounds/room2.png");
+    this.load.image("r3_background", "/assets/images/backgrounds/room3.png");
 
+    // Load NPC images
+    this.load.image("oldLady", "/assets/images/characters/oldLady.png");
+    this.load.image("oldLady2", "/assets/images/characters/oldLady2.png");
+    this.load.image("oldLady3", "/assets/images/characters/oldLady3.png");
+
+    // Load item images
+    this.load.image("microchip", "assets/images/items/microchip.png");
+    this.load.image("battery", "assets/images/items/battery.png");
+    this.load.image("bread", "assets/images/items/bread.png");
+    this.load.image("cheese", "assets/images/items/cheese.png");
+    this.load.image("drawing", "assets/images/items/drawing.png");
+    this.load.image("keycard", "assets/images/items/keycard.png");
+
+    // Door image for entry/exit doors
+    this.load.image("door", "/assets/images/door.png");
+
+    // Used for speech box
     this.load.image('nextPage', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/assets/images/arrow-down-left.png');
 
-    this.load.image("door", "/assets/images/door.png");
+
 
     // spritesheets is a collection of single file separated by frames
     // this.load.spritesheet("robotRun", "/assets/spritesheets/robotRun.png",{
