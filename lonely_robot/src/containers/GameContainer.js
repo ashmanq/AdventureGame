@@ -17,11 +17,6 @@ class GameContainer extends Component {
   updateInventory(inventory) {
     this.setState({inventory: inventory})
     console.log(inventory);
-  //
-  //   if(found) {
-  //     const array = [...this.state.inventory];
-  //     const index = this.state.inventory.indexOf(found);
-  //   }
   }
 
   render() {

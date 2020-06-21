@@ -8,15 +8,6 @@ class EndScreen extends Phaser.Scene {
     this.text = "End!";
   }
 
-  init() {
-    // We reset global game data when the game ends
-    // this.inventory = this.registry.get("inventory");
-    // this.gameData = this.registry.get("gameData");
-    //
-    // this.inventory = [];
-    // this.gameData = { room1Complete: false, room2Complete: false, room3Complete: false };
-
-  }
 
   create() {
     this.registry.set("inventory", []);
