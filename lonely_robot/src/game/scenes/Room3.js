@@ -22,13 +22,13 @@ class Room3 extends Phaser.Scene {
     this.startPosX = 80;
     if (data.start_x_pos) {
       this.startPosX = data.start_x_pos;
+      data.returning = null;
     }
 
     this.inventory = this.registry.get("inventory");
     this.gameData = this.registry.get("gameData");
-    // this.gameData.room2Complete = true;
-    console.log(this.inventory);
-    console.log(this.gameData);
+    // console.log(this.inventory);
+    // console.log(this.gameData);
   }
 
   create() {
@@ -51,8 +51,8 @@ class Room3 extends Phaser.Scene {
     this.robot = new Character(this, this.startPosX, 390);
 
     // Create NPC Character
-    this.npc = new Npc(this, 600, 390, this.requiredItem, this.itemToGet, 'oldLady3', Speech[2]);
-
+    this.npc = new Npc(this, 600, 390, this.requiredItem, this.itemToGet, 'robotNpc', Speech[2]);
+    this.npc.setFlip(true, false);
     // Create item in room
     if (!this.gameData.room3Complete) {
       this.item = new Item(this, 120, 368, this.requiredItem);
@@ -62,11 +62,11 @@ class Room3 extends Phaser.Scene {
 
     // Create Door sprite
     this.entryDoor = this.add.image(10, 366, "door");
-    this.entryDoor.setInteractive();
+    this.entryDoor.setInteractive( { useHandCursor: true  } );
     this.physics.world.enable([this.entryDoor]);
 
     this.exitDoor = this.add.image(config.width - 10, 366, "door");
-    this.exitDoor.setInteractive();
+    this.exitDoor.setInteractive( { useHandCursor: true  } );
     this.physics.world.enable([this.exitDoor]);
 
     this.physics.add.overlap(this.robot, this.entryDoor, function() {

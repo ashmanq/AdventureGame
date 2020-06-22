@@ -9,11 +9,11 @@ class Item extends Phaser.Physics.Arcade.Sprite {
 
     scene.add.existing(this);
     scene.physics.add.existing(this);
-    this.setInteractive();
+    this.setInteractive( { useHandCursor: true  } );
     this.name = item.name;
     this.description = item.description;
 
-    
+
   }
 
 

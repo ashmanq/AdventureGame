@@ -16,7 +16,6 @@ class GameContainer extends Component {
 
   updateInventory(inventory) {
     this.setState({inventory: inventory})
-    console.log(inventory);
   }
 
   render() {

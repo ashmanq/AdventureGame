@@ -13,11 +13,11 @@ class Npc extends Phaser.Physics.Arcade.Sprite {
 
 
         //  Set some default physics properties
-        this.setScale(1.5);
+        this.setScale(2.5);
         this.setCollideWorldBounds(true);
 
         this.body.onWorldBounds = true;
-        this.body.setSize(70, 90);
+        this.body.setSize(35, 50);
         this.setDepth(1);
         this.setData("speechCounter", 0);
         this.setData("taskInProgress", false);
@@ -27,7 +27,7 @@ class Npc extends Phaser.Physics.Arcade.Sprite {
         this.setData("speech", speech);
         this.setData("icon", name);
 
-        this.setInteractive();
+        this.setInteractive( { useHandCursor: true  } );
 
     }
 

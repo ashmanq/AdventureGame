@@ -21,11 +21,12 @@ class Room1 extends Phaser.Scene {
     this.startPosX = 50;
     if(data.start_x_pos) {
       this.startPosX = data.start_x_pos;
+      data.returning = null;
     }
     this.inventory = this.registry.get("inventory");
     this.gameData = this.registry.get("gameData");
-    console.log(this.inventory);
-    console.log(this.gameData);
+    // console.log(this.inventory);
+    // console.log(this.gameData);
   }
 
 
@@ -64,7 +65,7 @@ class Room1 extends Phaser.Scene {
 
     // Create Door sprite for exit
     this.exitDoor = this.add.image(config.width - 10 , 366, "door");
-    this.exitDoor.setInteractive();
+    this.exitDoor.setInteractive( { useHandCursor: true  } );
 
     // Enable physics for collision detection
     this.physics.world.enable([ this.exitDoor ]);
@@ -141,9 +142,9 @@ class Room1 extends Phaser.Scene {
     });
 
 
-   this.speechBox = CreateSpeechBox(this, 130, 470, {
-                wrapWidth: config.width - 400,
-                fixedWidth: config.width - 400,
+   this.speechBox = CreateSpeechBox(this, 100, 470, {
+                wrapWidth: config.width - 300,
+                fixedWidth: config.width - 300,
                 fixedHeight: 75,
             }, this.robot)
     }

@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 
 const COLOR_PRIMARY = 0x4e342e;
 const COLOR_LIGHT = 0x7b5e57;
-const COLOR_DARK = 0x260e04;
+// const COLOR_DARK = 0x260e04;
 
 const CreateSpeechBox = function (scene, x, y, config, character) {
 
@@ -19,7 +19,7 @@ const CreateSpeechBox = function (scene, x, y, config, character) {
               .setStrokeStyle(2, COLOR_LIGHT),
 
           // icon: scene.rexUI.add.roundRectangle(0, 0, 2, 2, 20, COLOR_DARK),
-          icon: scene.rexUI.add.image("microchip"),
+          // icon: scene.add.image(0,0, "oldLady"),
 
           // text: getBuiltInText(scene, wrapWidth, fixedWidth, fixedHeight),
           text: getBBcodeText(scene, wrapWidth, fixedWidth, fixedHeight),

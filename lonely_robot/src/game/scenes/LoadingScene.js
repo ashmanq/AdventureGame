@@ -16,8 +16,8 @@ class LoadingScene extends Phaser.Scene {
 
     // Load NPC images
     this.load.image("oldLady", "/assets/images/characters/oldLady.png");
-    this.load.image("oldLady2", "/assets/images/characters/oldLady2.png");
-    this.load.image("oldLady3", "/assets/images/characters/oldLady3.png");
+    this.load.image("soldierNpc", "/assets/images/characters/soldierNpc.png");
+    this.load.image("robotNpc", "/assets/images/characters/robotNpc.png");
 
     // Load item images
     this.load.image("microchip", "assets/images/items/microchip.png");
@@ -34,14 +34,14 @@ class LoadingScene extends Phaser.Scene {
     this.load.image('nextPage', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/assets/images/arrow-down-left.png');
 
 
-    this.load.spritesheet("robotRun", "/assets/spritesheets/robotv3Run.png",{
+    this.load.spritesheet("robotRun", "/assets/spritesheets/robotv4Run.png",{
       //size of the frames
       frameWidth: 64,
       frameHeight: 64
     });
 
 
-    this.load.spritesheet("robotIdle", "/assets/spritesheets/robotv3Idle.png",{
+    this.load.spritesheet("robotIdle", "/assets/spritesheets/robotv4Idle.png",{
       //size of the frames
       frameWidth: 64,
       frameHeight: 64
