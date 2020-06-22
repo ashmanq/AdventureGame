@@ -10,7 +10,7 @@ class Character extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.existing(this);
 
         //  Set some default physics properties
-        this.setScale(1.5);
+        this.setScale(2.5);
         this.setCollideWorldBounds(true);
         this.setData(
           {
@@ -21,7 +21,7 @@ class Character extends Phaser.Physics.Arcade.Sprite {
 
         this.setDepth(10);
         this.body.onWorldBounds = true;
-        this.body.setSize(70, 90);
+        this.body.setSize(30, 58);
 
     }
 

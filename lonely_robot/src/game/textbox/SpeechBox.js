@@ -18,7 +18,8 @@ const CreateSpeechBox = function (scene, x, y, config, character) {
           background: scene.rexUI.add.roundRectangle(0, 0, 2, 2, 20, COLOR_PRIMARY)
               .setStrokeStyle(2, COLOR_LIGHT),
 
-          icon: scene.rexUI.add.roundRectangle(0, 0, 2, 2, 20, COLOR_DARK),
+          // icon: scene.rexUI.add.roundRectangle(0, 0, 2, 2, 20, COLOR_DARK),
+          icon: scene.rexUI.add.image("microchip"),
 
           // text: getBuiltInText(scene, wrapWidth, fixedWidth, fixedHeight),
           text: getBBcodeText(scene, wrapWidth, fixedWidth, fixedHeight),

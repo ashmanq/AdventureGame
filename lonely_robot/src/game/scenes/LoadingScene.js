@@ -34,52 +34,24 @@ class LoadingScene extends Phaser.Scene {
     this.load.image('nextPage', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/assets/images/arrow-down-left.png');
 
 
-    this.load.spritesheet("robotRun", "/assets/spritesheets/robotRun2.png",{
+    this.load.spritesheet("robotRun", "/assets/spritesheets/robotv3Run.png",{
       //size of the frames
-      frameWidth: 100,
-      frameHeight: 100
+      frameWidth: 64,
+      frameHeight: 64
     });
 
 
-    this.load.spritesheet("robotIdle", "/assets/spritesheets/robot1.png",{
+    this.load.spritesheet("robotIdle", "/assets/spritesheets/robotv3Idle.png",{
       //size of the frames
-      frameWidth: 100,
-      frameHeight: 100
-    });
-
-
-
-    this.load.spritesheet("ship", "/assets/spritesheets/ship.png",{
-      //size of the frames
-      frameWidth: 16,
-      frameHeight: 16
-    });
-
-
-    this.load.spritesheet("ship2", "/assets/spritesheets/ship2.png",{
-      //size of the frames
-      frameWidth: 32,
-      frameHeight: 16
-    });
-
-    this.load.spritesheet("ship3", "/assets/spritesheets/ship3.png",{
-      //size of the frames
-      frameWidth: 32,
-      frameHeight: 32
-    });
-
-    this.load.spritesheet("explosion", "/assets/spritesheets/explosion.png",{
-      //size of the frames
-      frameWidth: 16,
-      frameHeight: 16
+      frameWidth: 64,
+      frameHeight: 64
     });
 
 }
   create() {
   this.game.music = this.sound.add('main');
   this.game.music.loop = true;
-  this.game.music.play();
-  console.log(this.game.music);
+  // this.game.music.play();
 
   this.add.text(20, 20, "..based on a true story...");
   this.add.text(20, 50, "..created by Francesco Dama and Ashir Qureshi..");
