@@ -11,7 +11,7 @@ class EndScreen extends Phaser.Scene {
   preload(){
 
     // Load background images
-    this.load.image("ending_background", "/assets/images/backgrounds/EndBackground.png");
+    this.load.image("ending_background", "assets/images/backgrounds/EndBackground.png");
   }
 
 

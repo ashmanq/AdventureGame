@@ -7,17 +7,17 @@ class LoadingScene extends Phaser.Scene {
 
   preload(){
     // Load music
-    this.load.audio('main', '/assets/music/mainTheme.mp3');
+    this.load.audio('main', 'assets/music/mainTheme.mp3');
 
     // Load background images
-    this.load.image("r1_background", "/assets/images/backgrounds/room1.png");
-    this.load.image("r2_background", "/assets/images/backgrounds/room2.png");
-    this.load.image("r3_background", "/assets/images/backgrounds/room3.png");
+    this.load.image("r1_background", "assets/images/backgrounds/room1.png");
+    this.load.image("r2_background", "assets/images/backgrounds/room2.png");
+    this.load.image("r3_background", "assets/images/backgrounds/room3.png");
 
     // Load NPC images
-    this.load.image("oldLady", "/assets/images/characters/oldLady.png");
-    this.load.image("soldierNpc", "/assets/images/characters/soldierNpc.png");
-    this.load.image("robotNpc", "/assets/images/characters/robotNpc.png");
+    this.load.image("oldLady", "assets/images/characters/oldLady.png");
+    this.load.image("soldierNpc", "assets/images/characters/soldierNpc.png");
+    this.load.image("robotNpc", "./assets/images/characters/robotNpc.png");
 
     // Load item images
     this.load.image("microchip", "assets/images/items/microchip.png");
@@ -28,20 +28,20 @@ class LoadingScene extends Phaser.Scene {
     this.load.image("keycard", "assets/images/items/keycard.png");
 
     // Door image for entry/exit doors
-    this.load.image("door", "/assets/images/door.png");
+    this.load.image("door", "assets/images/door.png");
 
     // Used for speech box
     this.load.image('nextPage', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/assets/images/arrow-down-left.png');
 
 
-    this.load.spritesheet("robotRun", "/assets/spritesheets/robotv4Run.png",{
+    this.load.spritesheet("robotRun", "assets/spritesheets/robotv4Run.png",{
       //size of the frames
       frameWidth: 64,
       frameHeight: 64
     });
 
 
-    this.load.spritesheet("robotIdle", "/assets/spritesheets/robotv4Idle.png",{
+    this.load.spritesheet("robotIdle", "assets/spritesheets/robotv4Idle.png",{
       //size of the frames
       frameWidth: 64,
       frameHeight: 64

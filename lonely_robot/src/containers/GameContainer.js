@@ -8,7 +8,7 @@ class GameContainer extends Component {
     super(props);
 
     this.state = {
-      inventory: [{name: "sword"}, {name: "hammer"}, {name: "cheese"}],
+      inventory: [],
     }
 
     this.updateInventory = this.updateInventory.bind(this);
