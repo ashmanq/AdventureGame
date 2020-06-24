@@ -154,11 +154,6 @@ class Room2 extends Phaser.Scene {
       repeat: -1 //infinite loop
     });
 
-    this.add.text(20, 20, "Playing game", {
-      font: "25px Arial",
-      fill: "yellow"
-    });
-
     // Speech Box
     this.speechBox = CreateSpeechBox(this, 100, 470, {
                  wrapWidth: config.width - 300,
