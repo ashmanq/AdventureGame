@@ -47,22 +47,36 @@ class LoadingScene extends Phaser.Scene {
       frameHeight: 64
     });
 
-}
+  }
+
   create() {
   this.game.music = this.sound.add('main');
   this.game.music.loop = true;
-  // this.game.music.play();
+  this.game.music.play();
 
-  this.add.text(20, 20, "..based on a true story...");
-  this.add.text(20, 50, "..created by Francesco Dama and Ashir Qureshi..");
+  this.add.text(20, 20, "A game based on a true story...");
+  this.add.text(20, 50, "Created by Francesco Dama and Ashir Qureshi..");
   this.add.text(20, 80,"..or Ashir Dama and Francesco Qureshi ??");
-  this.add.text(20, 110,"... machines are not perfect..");
-  this.add.text(20, 160, "Loading game..can take a while due the huge amount of data...");
+  this.add.text(20, 110,"...machines are not perfect..");
+  this.add.text(20, 200,"In a world in the far flung future, a lonely robot wakes from it's long slumber...");
+  this.add.text(20, 270, "Loading game..can take a while due the huge amount of data...");
 
   this.enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
   setTimeout(() => {
-    this.add.text(20, 200, "Please press enter to start!");
+
+    this.enterText = this.add.text(20, 340, "Click Here to Start!", {
+      font: "25px Arial",
+      fill: "yellow"
+    });
+    this.enterText.setInteractive({ useHandCursor: true  } );
+
+
+    this.enterText.on('pointerdown', function() {
+      this.scene.start("room1");
+    }, this)
+
   }, 1000);
+
 
 
   }

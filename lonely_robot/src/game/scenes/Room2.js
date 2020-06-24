@@ -60,7 +60,7 @@ class Room2 extends Phaser.Scene {
     }
 
     // Create NPC sprite
-    this.npc = new Npc(this, 600, 390, this.requiredItem, this.itemToGet, 'soldierNpc', Speech[1]);
+    this.npc = new Npc(this, 450, 390, this.requiredItem, this.itemToGet, 'soldierNpc', Speech[1]);
 
     // Create item in room
     if(!this.gameData.room2Complete) {
@@ -160,11 +160,11 @@ class Room2 extends Phaser.Scene {
     });
 
     // Speech Box
-    this.speechBox = CreateSpeechBox(this, 130, 470, {
-                 wrapWidth: config.width - 400,
-                 fixedWidth: config.width - 400,
+    this.speechBox = CreateSpeechBox(this, 100, 470, {
+                 wrapWidth: config.width - 300,
+                 fixedWidth: config.width - 300,
                  fixedHeight: 75,
-               })
+             })
 
   }
 

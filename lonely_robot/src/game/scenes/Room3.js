@@ -152,11 +152,11 @@ class Room3 extends Phaser.Scene {
     });
 
     // Speech Box
-    this.speechBox = CreateSpeechBox(this, 130, 470, {
-      wrapWidth: config.width - 400,
-      fixedWidth: config.width - 400,
-      fixedHeight: 75,
-    })
+    this.speechBox = CreateSpeechBox(this, 100, 470, {
+                 wrapWidth: config.width - 300,
+                 fixedWidth: config.width - 300,
+                 fixedHeight: 75,
+             })
 
   }
 
