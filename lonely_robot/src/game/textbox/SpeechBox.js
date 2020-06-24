@@ -2,9 +2,9 @@ import Phaser from 'phaser';
 
 const COLOR_PRIMARY = 0x4e342e;
 const COLOR_LIGHT = 0x7b5e57;
-const COLOR_DARK = 0x260e04;
+// const COLOR_DARK = 0x260e04;
 
-const CreateSpeechBox = function (scene, x, y, config) {
+const CreateSpeechBox = function (scene, x, y, config, character) {
 
   const GetValue = Phaser.Utils.Objects.GetValue;
   const wrapWidth = GetValue(config, 'wrapWidth', 0);
@@ -18,7 +18,8 @@ const CreateSpeechBox = function (scene, x, y, config) {
           background: scene.rexUI.add.roundRectangle(0, 0, 2, 2, 20, COLOR_PRIMARY)
               .setStrokeStyle(2, COLOR_LIGHT),
 
-          icon: scene.rexUI.add.roundRectangle(0, 0, 2, 2, 20, COLOR_DARK),
+          // icon: scene.rexUI.add.roundRectangle(0, 0, 2, 2, 20, COLOR_DARK),
+          // icon: scene.add.image(0,0, "oldLady"),
 
           // text: getBuiltInText(scene, wrapWidth, fixedWidth, fixedHeight),
           text: getBBcodeText(scene, wrapWidth, fixedWidth, fixedHeight),
@@ -44,15 +45,15 @@ const CreateSpeechBox = function (scene, x, y, config) {
           this.resetChildVisibleState(icon);
           if (this.isTyping) {
               this.stop(true);
-          } else {
+          }
+          else {
               this.typeNextPage();
           }
       }, textBox)
       .on('pageend', function () {
           if (this.isLastPage) {
-              return;
+            return;
           }
-
           var icon = this.getElement('action').setVisible(true);
           this.resetChildVisibleState(icon);
           icon.y -= 30;

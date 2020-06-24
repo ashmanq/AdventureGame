@@ -1,14 +1,23 @@
-import Phaser, { Sprite } from "phaser";
-// import React from "react"
-class Item  {
+import Phaser from "phaser";
 
-    constructor (name, url)
-    {
-        this.name = name;
-        this.url = url;
 
-        
 
-    }
+class Item extends Phaser.Physics.Arcade.Sprite {
+
+  constructor (scene, x, y, item) {
+    super(scene, x, y, item.name);
+
+    scene.add.existing(this);
+    scene.physics.add.existing(this);
+    this.setInteractive( { useHandCursor: true  } );
+    this.name = item.name;
+    this.description = item.description;
+
+
+  }
+
+
 
 }
+
+export default Item;

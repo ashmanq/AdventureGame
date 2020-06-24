@@ -8,17 +8,25 @@ class GameContainer extends Component {
     super(props);
 
     this.state = {
-      inventory: ["sword", "hammer", "cheese"],
+      inventory: [{name: "sword"}, {name: "hammer"}, {name: "cheese"}],
     }
+
+    this.updateInventory = this.updateInventory.bind(this);
   };
+
+  updateInventory(inventory) {
+    this.setState({inventory: inventory})
+  }
 
   render() {
     return(
       <div className="game-container">
         <h1>The Lonely Robot</h1>
-        <GameComponent />
-        <InventoryList />
-        <h2>Hi</h2>
+        <div className = "row">
+          <GameComponent updateInventory={this.updateInventory}/>
+          <InventoryList inventory={this.state.inventory}/>
+        </div>
+
       </div>
 
     )

@@ -3,9 +3,13 @@ import Game from '../game/game.js';
 
 class GameComponent extends Component {
 
+  // constructor(props) {
+  //   super(props)
+  // }
+
   // Load game when mounted
   componentDidMount() {
-    this.game = new Game(this)
+    this.game = new Game(this, this.props)
   }
 
   render() {

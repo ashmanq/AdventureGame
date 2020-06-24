@@ -1,14 +1,21 @@
 import React from 'react';
-
+import InventoryListItem from './InventoryListItem.js';
 
 const InventoryList = (props) => {
 
-  if(!props.inventory) return null;
+  let inventoryItems = "No items in inventory"
+
+  if(props.inventory){
+    inventoryItems = props.inventory.map((item, index) => {
+      return <InventoryListItem name={item.name} key={index}/>
+    })
+  }
+
   return (
-    <div>
+    <div className="container">
       <h2>Inventory</h2>
-      <ul>
-      <li>Hi</li>
+      <ul className="inventory-list">
+        { inventoryItems }
       </ul>
     </div>
 

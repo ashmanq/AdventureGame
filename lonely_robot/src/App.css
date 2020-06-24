@@ -1,12 +1,61 @@
+#game {
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 2px;
+  padding:5px;
+}
+
 body {
   display:flex;
   flex-direction: column;
   align-items: center;
+  background:#adadad;
+
 }
 
 .game-container {
   margin:auto;
   text-align: center;
+}
+
+.row {
+  display: flex;
+}
+
+.container {
+  padding: 10px;
+  margin: 20px 10px;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 2px;
+  font-size: 1.4em;
+}
+
+img {
+  width:50px;
+}
+
+p {
+  margin: 5px;
+}
+.inventory-list{
+  list-style: none;
+  padding:0;
+  display: flex;
+  flex-wrap: wrap;
+  width:150px;
+  transition: 2s;
+  justify-content: center;
+}
+
+.inventory-item {
+  padding:10px;
+  margin:10px;
+  border-radius:5px;
+  font-weight: bold;
+  text-transform: capitalize;
+  background-color: aquamarine;
+  width:110px;
 }
 
 .App {
