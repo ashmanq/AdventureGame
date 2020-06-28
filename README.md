@@ -1,4 +1,4 @@
-# Adventure Game
+# The Lonely Robot Adventure Game
 This was a CodeClan group project that uses the Phaser3.js JavaScript framework to create a basic point and click adventure game. The front end uses the React framework to display the game and inventory as React components.
 
 ## About this game
